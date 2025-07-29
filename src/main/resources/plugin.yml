@@ -1,0 +1,6 @@
+name: AlmostEnoughAbilities
+version: '1.0-SNAPSHOT'
+main: me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities
+api-version: '1.21'
+Dependencies: [ ProjectKorra ]
+author: 'Kugelbltz'
