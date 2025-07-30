@@ -17,10 +17,8 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.plugin;
-import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.version;
+import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.*;
 
 public class FlameLeap extends FireAbility implements AddonAbility {
 
@@ -48,13 +46,13 @@ public class FlameLeap extends FireAbility implements AddonAbility {
     }
 
     private void setFields() {
-        this.fireTicks = plugin.getConfig().getInt("Abilities.FlameLeap.FireTicks");
-        this.maxJumps = plugin.getConfig().getInt("Abilities.FlameLeap.MaxJumps");
-        this.cooldown = plugin.getConfig().getLong("Abilities.FlameLeap.Cooldown");
-        this.duration = plugin.getConfig().getLong("Abilities.FlameLeap.FizzleOutTime");
-        this.damage = plugin.getConfig().getDouble("Abilities.FlameLeap.Damage");
-        this.xzPower = plugin.getConfig().getDouble("Abilities.FlameLeap.XZPower");
-        this.yPower = plugin.getConfig().getDouble("Abilities.FlameLeap.YPower");
+        this.fireTicks = plugin.getConfig().getInt("Abilities.Fire.FlameLeap.FireTicks");
+        this.maxJumps = plugin.getConfig().getInt("Abilities.Fire.FlameLeap.MaxJumps");
+        this.cooldown = plugin.getConfig().getLong("Abilities.Fire.FlameLeap.Cooldown");
+        this.duration = plugin.getConfig().getLong("Abilities.Fire.FlameLeap.FizzleOutTime");
+        this.damage = plugin.getConfig().getDouble("Abilities.Fire.FlameLeap.Damage");
+        this.xzPower = plugin.getConfig().getDouble("Abilities.Fire.FlameLeap.XZPower");
+        this.yPower = plugin.getConfig().getDouble("Abilities.Fire.FlameLeap.YPower");
     }
 
 
@@ -93,7 +91,6 @@ public class FlameLeap extends FireAbility implements AddonAbility {
         }else{
             particle=Particle.FLAME;
         }
-        // v3 particle hızı
 
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AZALEA_STEP, 1, 0);
         Vector particleTargetVector;
@@ -108,9 +105,9 @@ public class FlameLeap extends FireAbility implements AddonAbility {
         Vector finalTarget = particleTarget.toVector().subtract(player.getLocation().toVector());
         for(int i = 0; i<=5; i++) {
             double xRandom, yRandom, zRandom;
-            xRandom = finalTarget.getX()+new Random().nextDouble(-0.3,0.3);
-            yRandom = finalTarget.getY()+new Random().nextDouble(-0.3,0.3);
-            zRandom = finalTarget.getZ()+new Random().nextDouble(-0.3,0.3);
+            xRandom = finalTarget.getX()+random.nextDouble(-0.3,0.3);
+            yRandom = finalTarget.getY()+random.nextDouble(-0.3,0.3);
+            zRandom = finalTarget.getZ()+random.nextDouble(-0.3,0.3);
             player.getWorld().spawnParticle(particle, player.getLocation(), 0, xRandom,yRandom,zRandom,0.15,null,true);
             player.getWorld().spawnParticle(Particle.SMOKE, player.getLocation(), 0,xRandom, yRandom,zRandom,0.15,null,true);
         }
@@ -164,12 +161,12 @@ public class FlameLeap extends FireAbility implements AddonAbility {
 
     @Override
     public String getInstructions() {
-        return plugin.getConfig().getString("Strings.FlameLeap.Instructions");
+        return plugin.getConfig().getString("Strings.Fire.FlameLeap.Instructions");
     }
 
     @Override
     public String getDescription() {
-        return plugin.getConfig().getString("Strings.FlameLeap.Description");
+        return plugin.getConfig().getString("Strings.Fire.FlameLeap.Description");
     }
 
     @Override
@@ -202,9 +199,9 @@ public class FlameLeap extends FireAbility implements AddonAbility {
     private void spawnBoom(Location location){
         for(int i = 0;i<=25;i++){
             Location temp = location.clone();
-            double xTarget = location.getX()+new Random().nextDouble(-1.75,1.75);
-            double yTarget = location.getY()+new Random().nextDouble(-1.75,1.75);
-            double zTarget = location.getZ()+new Random().nextDouble(-1.75,1.75);
+            double xTarget = location.getX()+random.nextDouble(-1.75,1.75);
+            double yTarget = location.getY()+random.nextDouble(-1.75,1.75);
+            double zTarget = location.getZ()+random.nextDouble(-1.75,1.75);
             temp.setX(xTarget);
             temp.setY(yTarget);
             temp.setZ(zTarget);

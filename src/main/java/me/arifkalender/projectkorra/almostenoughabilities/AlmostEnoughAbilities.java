@@ -1,6 +1,7 @@
 package me.arifkalender.projectkorra.almostenoughabilities;
 
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.CrustSpikesListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.DissipationListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.FlameLeapListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.TestListener;
@@ -31,6 +32,7 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         plugin.getServer().getPluginManager().registerEvents(new ReloadEvent(), this);
         plugin.getServer().getPluginManager().registerEvents(new FlameLeapListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new DissipationListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new CrustSpikesListener(), this);
     }
 
     @Override

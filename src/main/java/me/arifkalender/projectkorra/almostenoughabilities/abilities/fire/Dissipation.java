@@ -16,13 +16,8 @@ import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.plugin;
-import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.random;
 import static me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods.*;
 
 
@@ -55,11 +50,11 @@ public class Dissipation extends FireAbility implements AddonAbility {
     }
 
     private void setFields() {
-        duration = plugin.getConfig().getLong("Abilities.Dissipation.FizzleOutTime");
-        controlledCooldown = plugin.getConfig().getLong("Abilities.Dissipation.Controlled.Cooldown");
-        uncontrolledCooldown = plugin.getConfig().getLong("Abilities.Dissipation.Uncontrolled.Cooldown");
-        uncontrolledRadius = plugin.getConfig().getDouble("Abilities.Dissipation.Uncontrolled.Radius");
-        uncontrolledDamage = plugin.getConfig().getDouble("Abilities.Dissipation.Uncontrolled.Damage");
+        duration = plugin.getConfig().getLong("Abilities.Fire.Dissipation.FizzleOutTime");
+        controlledCooldown = plugin.getConfig().getLong("Abilities.Fire.Dissipation.Controlled.Cooldown");
+        uncontrolledCooldown = plugin.getConfig().getLong("Abilities.Fire.Dissipation.Uncontrolled.Cooldown");
+        uncontrolledRadius = plugin.getConfig().getDouble("Abilities.Fire.Dissipation.Uncontrolled.Radius");
+        uncontrolledDamage = plugin.getConfig().getDouble("Abilities.Fire.Dissipation.Uncontrolled.Damage");
     }
 
     Particle userParticle;
@@ -78,20 +73,20 @@ public class Dissipation extends FireAbility implements AddonAbility {
             bPlayer.addCooldown(this);
             return;
         }
+
         if (bPlayer.hasElement(Element.BLUE_FIRE) && bPlayer.isElementToggled(Element.BLUE_FIRE)) {
             userParticle = Particle.SOUL_FIRE_FLAME;
         } else {
             userParticle = Particle.FLAME;
         }
-
-        player.getWorld().spawnParticle(userParticle, getLocation(), 1, 0, 0, 0, 0.05);
+        playerFeet=player.getLocation();
+        player.getWorld().spawnParticle(userParticle, getLocation().add(player.getEyeLocation().getDirection().multiply(0.5)), 1, 0, 0, 0, 0.05);
 
         for (CoreAbility ins : UtilizationMethods.getAbilitiesAroundPoint(getLocation(), 2.5)) {
             if (ins.getElement() == Element.FIRE || ins.getElement() == Element.BLUE_FIRE) {
                 if (ins.getPlayer() != player) {
                     ins.remove();
                     remove = true;
-                    playerFeet=player.getLocation();
                     if (ins.getBendingPlayer().hasElement(Element.BLUE_FIRE) && ins.getBendingPlayer().isElementToggled(Element.BLUE_FIRE)) {
                         isBlue = true;
                     } else {
@@ -100,9 +95,6 @@ public class Dissipation extends FireAbility implements AddonAbility {
                 }
             }
         }
-        playerFeet=player.getLocation();
-        playerFeet.getWorld().playSound(playerFeet, Sound.ENTITY_ARROW_SHOOT, 1, 0);
-        uncontrolledDissipation();
         if (remove) {
             if (player.isSneaking()) {
                 uncontrolledDissipation();
@@ -114,6 +106,7 @@ public class Dissipation extends FireAbility implements AddonAbility {
     }
 
     private void controlledDissipation() {
+        playerFeet.getWorld().playSound(playerFeet, Sound.ENTITY_ARROW_SHOOT, 1, 0);
         for (Location point : getRingXYZ(getLocation(), player.getEyeLocation().getDirection(), 1.5, 33)) {
             //Player particles
             if(bPlayer.hasElement(Element.BLUE_FIRE) && bPlayer.isElementToggled(Element.BLUE_FIRE)){
@@ -134,15 +127,14 @@ public class Dissipation extends FireAbility implements AddonAbility {
     }
 
     private void uncontrolledDissipation() {
+        playerFeet.getWorld().playSound(playerFeet, Sound.ENTITY_ARROW_SHOOT, 1, 0);
+        Location left = GeneralMethods.getLeftSide(playerFeet, 1);
+        Location right = GeneralMethods.getRightSide(playerFeet, 1);
+        left.setY(left.getY()+1);
+        right.setY(right.getY()+1);
 
-        playerFeet.getWorld().spawnParticle(userParticle, playerFeet, (int)uncontrolledRadius*25, uncontrolledRadius/5);
-
-        if(isBlue){
-            playerFeet.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, playerFeet, (int)uncontrolledRadius*25, uncontrolledRadius/5);
-        }else{
-            playerFeet.getWorld().spawnParticle(Particle.FLAME, playerFeet, (int)uncontrolledRadius*25, uncontrolledRadius/5);
-
-        }
+        left.getWorld().spawnParticle(userParticle, left, (int)(35*uncontrolledRadius), 0,0,0, uncontrolledRadius*0.05);
+        right.getWorld().spawnParticle(userParticle, right, (int)(35*uncontrolledRadius), 0,0,0, uncontrolledRadius*0.05);
 
         new BukkitRunnable(){
             double i;
@@ -232,12 +224,12 @@ public class Dissipation extends FireAbility implements AddonAbility {
 
     @Override
     public String getDescription() {
-        return plugin.getConfig().getString("Strings.Dissipation.Description");
+        return plugin.getConfig().getString("Strings.Fire.Dissipation.Description");
     }
 
     @Override
     public String getInstructions() {
-        return plugin.getConfig().getString("Strings.Dissipation.Instructions");
+        return plugin.getConfig().getString("Strings.Fire.Dissipation.Instructions");
     }
 
     @Override
