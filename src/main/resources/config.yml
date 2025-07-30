@@ -32,6 +32,12 @@ Abilities:
         MinPitch: -135
         WidthRadius: 3
         Frequency: 33
+    DensifyGround:
+      Enabled: true
+      Cooldown: 16000
+      ChargeDuration: 500
+      Duration: 2000
+      Radius: 3.5
 Strings:
   Fire:
     FlameLeap:
@@ -44,3 +50,6 @@ Strings:
     CrustSpikes:
       Description: 'Release multiple earth spikes in various formations in front of you to hurt your enemies!'
       Instructions: 'Sneak and left click'
+    DensifyGround:
+      Description: 'Densify the earth-bendable ground to suck entities towards a centre.'
+      Instructions: 'Hold sneak to charge, release sneak to release.'
