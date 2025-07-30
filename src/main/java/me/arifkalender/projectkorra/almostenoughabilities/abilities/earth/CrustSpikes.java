@@ -76,16 +76,35 @@ public class CrustSpikes extends EarthAbility implements AddonAbility {
         if (!bPlayer.isOnline() || player.isDead()) {
             remove();
             bPlayer.addCooldown(this);
+            removeLogic();
             return;
         }
         if (progressing.distance(origin) > range || !bPlayer.canBend(this) || remove) {
             remove();
             bPlayer.addCooldown(this);
+            removeLogic();
             return;
         }
         detectBendable();
         progressing.add(direction);
         spawnSpikes(progressing);
+    }
+    private void removeLogic(){
+        if(!toRevert.isEmpty()){
+
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    for (TempBlock tempBlock : toRevert) {
+                        tempBlock.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRUMBLE, tempBlock.getLocation(), 7, 0.5, 0.5, 0.5, 0.05, tempBlock.getBlockData());
+                        tempBlock.getLocation().getWorld().playSound(tempBlock.getLocation(), Sound.BLOCK_TUFF_BREAK, 0.3f, 0.5f);
+                        tempBlock.revertBlock();
+                    }
+                    toRevert.clear();
+                }
+            }.runTaskLater(plugin, 20*6);
+
+        }
     }
 
     private void detectBendable(){
@@ -115,6 +134,7 @@ public class CrustSpikes extends EarthAbility implements AddonAbility {
     }
 
     private List<Entity> damaged = new ArrayList<>();
+    private List<TempBlock> toRevert = new ArrayList<>();
     private void singleSpike(Location location) {
         Location originV2 = location.clone();
         Material type = location.getBlock().getType();
@@ -138,7 +158,8 @@ public class CrustSpikes extends EarthAbility implements AddonAbility {
                     if(!isEarthbendable(location.clone().add(0,1,0).getBlock()) && location.clone().add(0,1,0).getBlock().getType()!=Material.AIR){
                         this.cancel();
                     }
-                    new TempBlock(location.getBlock(), finalType.createBlockData(), 6000+remove, CoreAbility.getAbility(CrustSpikes.class));
+                    TempBlock tB = new TempBlock(location.getBlock(), finalType.createBlockData(), CoreAbility.getAbility(CrustSpikes.class));
+                    toRevert.add(tB);
                     location.getWorld().playSound(location, Sound.BLOCK_TUFF_BREAK, 1.5f, 0);
                     remove+=50;
                     location.add(vector);
