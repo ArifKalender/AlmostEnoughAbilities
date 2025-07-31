@@ -18,7 +18,7 @@ import java.util.List;
 
 import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.*;
 
-public class DensifyGround extends EarthAbility implements AddonAbility {
+public class DensityAlteration extends EarthAbility implements AddonAbility {
 
     private long cooldown;
     private long chargeDuration;
@@ -27,19 +27,19 @@ public class DensifyGround extends EarthAbility implements AddonAbility {
     private double initialRadius;
     private Location centre;
 
-    public DensifyGround(Player player) {
+    public DensityAlteration(Player player) {
         super(player);
-        if (bPlayer.canBend(this) && !hasAbility(player, DensifyGround.class)) {
+        if (bPlayer.canBend(this) && !hasAbility(player, DensityAlteration.class)) {
             setFields();
             startCharge();
         }
     }
 
     private void setFields() {
-        this.cooldown = plugin.getConfig().getLong("Abilities.Earth.DensifyGround.Cooldown");
-        this.chargeDuration = plugin.getConfig().getLong("Abilities.Earth.DensifyGround.ChargeDuration");
-        this.duration = plugin.getConfig().getLong("Abilities.Earth.DensifyGround.Duration");
-        this.initialRadius = plugin.getConfig().getDouble("Abilities.Earth.DensifyGround.Radius");
+        this.cooldown = plugin.getConfig().getLong("Abilities.Earth.DensityAlteration.Cooldown");
+        this.chargeDuration = plugin.getConfig().getLong("Abilities.Earth.DensityAlteration.ChargeDuration");
+        this.duration = plugin.getConfig().getLong("Abilities.Earth.DensityAlteration.Duration");
+        this.initialRadius = plugin.getConfig().getDouble("Abilities.Earth.DensityAlteration.Radius");
         dynamicRadius = initialRadius;
         this.centre = player.getLocation();
 
@@ -119,14 +119,14 @@ public class DensifyGround extends EarthAbility implements AddonAbility {
             if (random.nextInt(0, 100) < 15) {
                 if (isEarthbendable(point.getBlock())) {
                     if (point.clone().add(0, 1, 0).getBlock().getType() != Material.AIR) {
-                        new TempFallingBlock(point.clone().add(0, 1.75, 0), point.getBlock().getBlockData(), new Vector(0, 0.1, 0), CoreAbility.getAbility(DensifyGround.class));
+                        new TempFallingBlock(point.clone().add(0, 1.75, 0), point.getBlock().getBlockData(), new Vector(0, 0.1, 0), CoreAbility.getAbility(DensityAlteration.class));
                         point.getWorld().playSound(point, Sound.BLOCK_TUFF_BREAK, 0.3f, 0.5f);
                     }
                     if (point.getBlock().getType() == Material.AIR) {
-                        new TempFallingBlock(point.clone().add(0, -0.25, 0), point.getBlock().getBlockData(), new Vector(0, 0.1, 0), CoreAbility.getAbility(DensifyGround.class));
+                        new TempFallingBlock(point.clone().add(0, -0.25, 0), point.getBlock().getBlockData(), new Vector(0, 0.1, 0), CoreAbility.getAbility(DensityAlteration.class));
                         point.getWorld().playSound(point, Sound.BLOCK_TUFF_BREAK, 0.3f, 0.5f);
                     }
-                    new TempFallingBlock(point.clone().add(0, 0.75, 0), point.getBlock().getBlockData(), new Vector(0, 0.1, 0), CoreAbility.getAbility(DensifyGround.class));
+                    new TempFallingBlock(point.clone().add(0, 0.75, 0), point.getBlock().getBlockData(), new Vector(0, 0.1, 0), CoreAbility.getAbility(DensityAlteration.class));
                     point.getWorld().playSound(point, Sound.BLOCK_TUFF_BREAK, 0.3f, 0.5f);
                     point.getWorld().playSound(point, Sound.UI_STONECUTTER_TAKE_RESULT, 0.3f, 0.5f);
                     point.getWorld().spawnParticle(Particle.BLOCK_CRUMBLE, point.clone().add(0, 1, 0), 4, 0.3, 0.5, 0.5, 0.05, point.getBlock().getBlockData());
@@ -144,7 +144,7 @@ public class DensifyGround extends EarthAbility implements AddonAbility {
                 temp.add(vector);
                 player.sendMessage(temp.getX()+" " + temp.getY() + " " + temp.getZ());
                 if(isEarthbendable(temp.getBlock())){
-                    new TempFallingBlock(temp.clone().add(0,0.75,0), temp.getBlock().getBlockData(), new Vector(0,0.1,0), CoreAbility.getAbility(DensifyGround.class));
+                    new TempFallingBlock(temp.clone().add(0,0.75,0), temp.getBlock().getBlockData(), new Vector(0,0.1,0), CoreAbility.getAbility(DensityAlteration.class));
                     temp.getWorld().spawnParticle(Particle.BLOCK_CRUMBLE, temp, 4, 0.5, 0.5, 0.5, 0.05, temp.getBlock().getBlockData());
                     temp.getWorld().spawnParticle(Particle.EXPLOSION, temp, 4, 0.5, 0.5, 0.5, 0.05);
                 }
@@ -173,7 +173,7 @@ public class DensifyGround extends EarthAbility implements AddonAbility {
 
     @Override
     public String getName() {
-        return "DensifyGround";
+        return "DensityAlteration";
     }
 
     @Override
@@ -203,16 +203,16 @@ public class DensifyGround extends EarthAbility implements AddonAbility {
 
     @Override
     public boolean isEnabled() {
-        return plugin.getConfig().getBoolean("Abilities.Earth.DensifyGround.Enabled");
+        return plugin.getConfig().getBoolean("Abilities.Earth.DensityAlteration.Enabled");
     }
 
     @Override
     public String getInstructions() {
-        return plugin.getConfig().getString("Strings.Earth.DensifyGround.Description");
+        return plugin.getConfig().getString("Strings.Earth.DensityAlteration.Description");
     }
 
     @Override
     public String getDescription() {
-        return plugin.getConfig().getString("Strings.Earth.DensifyGround.Instructions");
+        return plugin.getConfig().getString("Strings.Earth.DensityAlteration.Instructions");
     }
 }
