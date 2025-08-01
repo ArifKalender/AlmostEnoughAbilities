@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/almostenoughabilities.iml" filepath="$PROJECT_DIR$/almostenoughabilities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlmostEnoughAbilities.iml" filepath="$PROJECT_DIR$/AlmostEnoughAbilities.iml" />
     </modules>
   </component>
 </project>

@@ -19,6 +19,14 @@ Abilities:
         Cooldown: 12000
         Radius: 4.75
         Damage: 1.0
+    BlazeRush:
+      Enabled: true
+      Controllable: false
+      Cooldown: 11000
+      Duration: 3000
+      FireTicks: 20
+      Speed: 1.1
+      Damage: 1.0
   Earth:
     CrustSpikes:
       Enabled: true
@@ -46,6 +54,9 @@ Strings:
     Dissipation:
       Description: 'Block your enemies Fire abilities either via an uncontrolled explosion or a controlled diffusion.'
       Instructions: 'Hold sneak and left click. A fire will appear in front of you, if you detect a fire ability in front of you it will dissipate. If the user is holding sneak it will be uncontrolled.'
+    BlazeRush:
+      Description: 'Use your FireBending to dash through your enemies and pierce them with flames.'
+      Instructions: 'Hold sneak and left click.'
   Earth:
     CrustSpikes:
       Description: 'Release multiple earth spikes in various formations in front of you to hurt your enemies!'
