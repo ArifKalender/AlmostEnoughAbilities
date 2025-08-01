@@ -4,6 +4,7 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.EarthAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.TempBlock;
 import org.bukkit.Location;
@@ -24,16 +25,21 @@ import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbi
 
 public class CrustSpikes extends EarthAbility implements AddonAbility {
 
+    @Attribute(Attribute.COOLDOWN)
     private long cooldown;
+    @Attribute(Attribute.DAMAGE)
     private double damage;
+    @Attribute(Attribute.RANGE)
     private double range;
+    @Attribute("SpikeLengthMax")
     private double spikeMaxLength;
+    @Attribute("SpikeLengthMin")
     private double spikeMinLength;
     private float spikeMaxPitch;
     private float spikeMinPitch;
+    @Attribute(Attribute.WIDTH)
     private double spikeWidthRadius;
     private double spikeFrequency;
-
     private Location progressing;
     private Location origin;
     private Vector direction;

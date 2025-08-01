@@ -2,10 +2,9 @@ package me.arifkalender.projectkorra.almostenoughabilities;
 
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.CrustSpikesListener;
-import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.DensifyGroundListener;
+import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.DensityAlterationListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.DissipationListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.FlameLeapListener;
-import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.TestListener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,7 +33,7 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         plugin.getServer().getPluginManager().registerEvents(new FlameLeapListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new DissipationListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new CrustSpikesListener(), this);
-        plugin.getServer().getPluginManager().registerEvents(new DensifyGroundListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new DensityAlterationListener(), this);
     }
 
     @Override

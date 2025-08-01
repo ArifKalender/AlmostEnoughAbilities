@@ -37,7 +37,7 @@ Abilities:
       Cooldown: 16000
       ChargeDuration: 500
       Duration: 2000
-      Radius: 3.5
+      Radius: 7.5
 Strings:
   Fire:
     FlameLeap:

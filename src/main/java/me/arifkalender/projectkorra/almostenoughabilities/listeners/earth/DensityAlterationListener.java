@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
-public class DensifyGroundListener implements Listener {
+public class DensityAlterationListener implements Listener {
 
     @EventHandler
     private void onSneak(PlayerToggleSneakEvent event){

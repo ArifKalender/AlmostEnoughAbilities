@@ -4,6 +4,7 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.EarthAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.TempFallingBlock;
 import me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods;
 import org.bukkit.*;
@@ -20,10 +21,14 @@ import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbi
 
 public class DensityAlteration extends EarthAbility implements AddonAbility {
 
+    @Attribute(Attribute.COOLDOWN)
     private long cooldown;
+    @Attribute(Attribute.CHARGE_DURATION)
     private long chargeDuration;
+    @Attribute(Attribute.DURATION)
     private long duration;
     private double dynamicRadius;
+    @Attribute(Attribute.RADIUS)
     private double initialRadius;
     private Location centre;
 
@@ -53,6 +58,12 @@ public class DensityAlteration extends EarthAbility implements AddonAbility {
 
             @Override
             public void run() {
+                if(!bPlayer.getBoundAbilityName().equalsIgnoreCase(getName())){
+                    remove();
+                    this.cancel();
+                    return;
+                }
+
                 //0.5 sn geçmişse demek alttaki
                 if (startTime + chargeDuration < System.currentTimeMillis()) {
                     canStart = true;
@@ -79,7 +90,7 @@ public class DensityAlteration extends EarthAbility implements AddonAbility {
 
     @Override
     public void progress() {
-        if (!bPlayer.canBend(this) || this.getStartTime() + duration < System.currentTimeMillis()) {
+        if (!bPlayer.canBendIgnoreBinds(this) || this.getStartTime() + duration < System.currentTimeMillis()) {
             remove();
             bPlayer.addCooldown(this);
             return;
@@ -134,26 +145,6 @@ public class DensityAlteration extends EarthAbility implements AddonAbility {
             }
         }
     }
-    /*private void playSingleBlockAnimation(Location start, Location end){
-        Location temp = start.clone();
-        new BukkitRunnable(){
-            Vector vector;
-            @Override
-            public void run() {
-                vector = end.toVector().subtract(start.toVector()).normalize();
-                temp.add(vector);
-                player.sendMessage(temp.getX()+" " + temp.getY() + " " + temp.getZ());
-                if(isEarthbendable(temp.getBlock())){
-                    new TempFallingBlock(temp.clone().add(0,0.75,0), temp.getBlock().getBlockData(), new Vector(0,0.1,0), CoreAbility.getAbility(DensityAlteration.class));
-                    temp.getWorld().spawnParticle(Particle.BLOCK_CRUMBLE, temp, 4, 0.5, 0.5, 0.5, 0.05, temp.getBlock().getBlockData());
-                    temp.getWorld().spawnParticle(Particle.EXPLOSION, temp, 4, 0.5, 0.5, 0.5, 0.05);
-                }
-                if(temp.distance(end) < 1.5){
-                    this.cancel();
-                }
-            }
-        }.runTaskTimer(plugin, 0, 4);
-    }*/
 
 
     @Override
