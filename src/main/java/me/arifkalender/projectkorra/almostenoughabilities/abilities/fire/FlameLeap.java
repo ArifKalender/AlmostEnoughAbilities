@@ -5,6 +5,7 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,6 +27,7 @@ public class FlameLeap extends FireAbility implements AddonAbility {
     private int fireTicks;
     @Attribute("MaxJumps")
     private int maxJumps;
+    @DayNightFactor (invert = true)
     @Attribute(Attribute.COOLDOWN)
     private long cooldown;
     @Attribute(Attribute.DURATION)

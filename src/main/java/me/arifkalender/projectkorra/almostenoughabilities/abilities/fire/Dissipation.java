@@ -6,6 +6,7 @@ import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities;
 import me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods;
@@ -32,8 +33,11 @@ public class Dissipation extends FireAbility implements AddonAbility {
 
     @Attribute(Attribute.DURATION)
     long duration;
+    @DayNightFactor (invert = true)
     @Attribute(Attribute.COOLDOWN)
     long controlledCooldown;
+    @DayNightFactor (invert = true)
+    @Attribute("UncontrolledCooldown")
     long uncontrolledCooldown;
     @Attribute(Attribute.RADIUS)
     double uncontrolledRadius;
