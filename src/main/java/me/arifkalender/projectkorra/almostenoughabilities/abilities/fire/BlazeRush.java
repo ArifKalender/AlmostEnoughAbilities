@@ -20,16 +20,20 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.plugin;
 
-public class BlazeRush extends EarthAbility implements AddonAbility {
+public class BlazeRush extends FireAbility implements AddonAbility {
 
-    @DayNightFactor (invert = true)
+    @DayNightFactor(invert = true)
     @Attribute(Attribute.COOLDOWN)
     private long cooldown;
     @Attribute(Attribute.DURATION)
@@ -41,18 +45,23 @@ public class BlazeRush extends EarthAbility implements AddonAbility {
     @Attribute(Attribute.FIRE_TICK)
     private int fireTicks;
     private boolean controllable;
-
     Vector direction;
+    int points = 16;
+    int i = 0;
+    private static Set<Player> SPINNING = new HashSet<>();
+    Particle particle;
+
     public BlazeRush(Player player) {
         super(player);
-        if(bPlayer.canBend(this) && ! hasAbility(player, BlazeRush.class)){
+        if (bPlayer.canBend(this) && !hasAbility(player, BlazeRush.class)) {
             setFields();
-            setRiptide(player);
+            SPINNING.add(player);
+            setRiptide(player, true);
             start();
         }
     }
 
-    private void setFields(){
+    private void setFields() {
         cooldown = plugin.getConfig().getLong("Abilities.Fire.BlazeRush.Cooldown");
         duration = plugin.getConfig().getLong("Abilities.Fire.BlazeRush.Duration");
         fireTicks = plugin.getConfig().getInt("Abilities.Fire.BlazeRush.FireTicks");
@@ -60,46 +69,96 @@ public class BlazeRush extends EarthAbility implements AddonAbility {
         damage = plugin.getConfig().getDouble("Abilities.Fire.BlazeRush.Damage");
         controllable = plugin.getConfig().getBoolean("Abilities.Fire.BlazeRush.Controllable");
         direction = player.getEyeLocation().getDirection().normalize().multiply(speed);
+
+        if (bPlayer.hasElement(Element.BLUE_FIRE) && bPlayer.isElementToggled(Element.BLUE_FIRE)) {
+            particle = Particle.SOUL_FIRE_FLAME;
+        } else {
+            particle = Particle.FLAME;
+        }
     }
 
     @Override
     public void progress() {
-        if(!bPlayer.canBend(this) || this.getStartTime() + duration <= System.currentTimeMillis()){
+        if (!bPlayer.canBend(this) || this.getStartTime() + duration <= System.currentTimeMillis()) {
             remove();
             bPlayer.addCooldown(this);
-            player.setFlying(false);
+            SPINNING.remove(player);
+            setRiptide(player, false);
             return;
         }
-        if(!player.isOnline() || player.isDead()){
+        if (!player.isOnline() || player.isDead()) {
             remove();
             bPlayer.addCooldown(this);
-            player.setFlying(false);
             return;
         }
-        if(controllable) direction = player.getEyeLocation().getDirection().normalize().multiply(speed);
+        if (controllable) direction = player.getEyeLocation().getDirection().normalize().multiply(speed);
         player.setVelocity(direction);
-        if(bPlayer.hasElement(Element.BLUE_FIRE) && bPlayer.isElementToggled(Element.BLUE_FIRE)){
-            player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 18, 1.5,1.5,1.5, 0.05f);
-        }else{
-            player.getWorld().spawnParticle(Particle.FLAME, player.getLocation(), 18, 1.5,1.5,1.5, 0.05f);
-        }
+//        if (bPlayer.hasElement(Element.BLUE_FIRE) && bPlayer.isElementToggled(Element.BLUE_FIRE)) {
+//            player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 18, 1.5, 1.5, 1.5, 0.05f);
+//        } else {
+//            player.getWorld().spawnParticle(Particle.FLAME, player.getLocation(), 18, 1.5, 1.5, 1.5, 0.05f);
+//        }
 
-        for(Entity entity : GeneralMethods.getEntitiesAroundPoint(player.getLocation(), 2)){
-            if(entity instanceof Damageable && entity != player){
+        formSpiral(0.5);
+        for (Entity entity : GeneralMethods.getEntitiesAroundPoint(player.getLocation(), 2)) {
+            if (entity instanceof Damageable && entity != player) {
                 entity.setFireTicks(fireTicks);
                 DamageHandler.damageEntity(entity, damage, this);
             }
         }
     }
-    public void setRiptide(Player player) {
-        List<EntityData<?>> data = List.of(
-                new EntityData<>(8, EntityDataTypes.BYTE, (byte) 0x04)
-        );
+    private double angle = 0;
+    private final double angularSpeed = Math.PI * 1.5; // radians per second, bump for faster
+    private long lastTime = System.currentTimeMillis();
+    private final double spiralExpansionPerRevolution = 0; // >0 makes radius grow each loop
+    private void formSpiral(double baseRadius) {
+        Location center = player.getLocation();
 
-        WrapperPlayServerEntityMetadata setData = new WrapperPlayServerEntityMetadata(player.getEntityId(), data);
+        Vector dir = direction.clone();
+        if (dir.lengthSquared() < 1e-6) dir = center.getDirection(); // fallback
+        dir.normalize();
 
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            PacketEvents.getAPI().getPlayerManager().sendPacket(p, setData);
+        Vector up = new Vector(0, 1, 0);
+        Vector right = dir.clone().crossProduct(up);
+        if (right.lengthSquared() < 1e-6) right = up.clone().crossProduct(dir);
+        right.normalize();
+        Vector forward = right.clone().crossProduct(dir).normalize();
+
+        long now = System.currentTimeMillis();
+        double deltaSec = (now - lastTime) / 1000.0;
+        lastTime = now;
+
+        angle = (angle + angularSpeed * deltaSec) % (2 * Math.PI);
+        double currentRadius = baseRadius + spiralExpansionPerRevolution * (angle / (2 * Math.PI));
+        double x = Math.cos(angle) * currentRadius;
+        double y = Math.sin(angle) * currentRadius;
+        Vector offset = right.clone().multiply(x).add(forward.clone().multiply(y));
+
+        center.getWorld().spawnParticle(particle, center.clone().add(offset), 3, 0.1, 0.1, 0.1, 0.05);
+    }
+
+
+
+    public static void setRiptide(Player player, boolean active) {
+        if (active) {
+            List<EntityData<?>> data = List.of(
+                    new EntityData<>(8, EntityDataTypes.BYTE, (byte) 0x04)
+            );
+            WrapperPlayServerEntityMetadata setData = new WrapperPlayServerEntityMetadata(player.getEntityId(), data);
+
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                PacketEvents.getAPI().getPlayerManager().sendPacket(p, setData);
+            }
+        } else {
+            // Send a new metadata packet to clear the flag
+            List<EntityData<?>> data = List.of(
+                    new EntityData<>(8, EntityDataTypes.BYTE, (byte) 0x00)
+            );
+            WrapperPlayServerEntityMetadata unsetData = new WrapperPlayServerEntityMetadata(player.getEntityId(), data);
+
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                PacketEvents.getAPI().getPlayerManager().sendPacket(p, unsetData);
+            }
         }
     }
 
@@ -160,7 +219,10 @@ public class BlazeRush extends EarthAbility implements AddonAbility {
 
     @Override
     public boolean isEnabled() {
-        return true;
-        //return plugin.getConfig().getBoolean("Abilities.Fire.BlazeRush.Enabled");
+        return plugin.getConfig().getBoolean("Abilities.Fire.BlazeRush.Enabled");
+    }
+
+    public static Set<Player> getSpinningPlayers() {
+        return SPINNING;
     }
 }
