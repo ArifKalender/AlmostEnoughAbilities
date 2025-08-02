@@ -30,6 +30,7 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(version + "§a was enabled!");
     }
     private void registerListeners(){
+
         plugin.getServer().getPluginManager().registerEvents(new ReloadEvent(), this);
         plugin.getServer().getPluginManager().registerEvents(new FlameLeapListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new DissipationListener(), this);

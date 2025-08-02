@@ -239,7 +239,7 @@ public class Dissipation extends FireAbility implements AddonAbility {
 
     @Override
     public boolean isEnabled() {
-        return plugin.getConfig().getBoolean("Abilities.Dissipation.Enabled");
+        return plugin.getConfig().getBoolean("Abilities.Fire.Dissipation.Enabled");
     }
 
 }

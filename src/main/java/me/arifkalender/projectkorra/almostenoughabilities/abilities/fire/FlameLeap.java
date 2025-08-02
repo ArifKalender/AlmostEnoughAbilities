@@ -174,7 +174,7 @@ public class FlameLeap extends FireAbility implements AddonAbility {
 
     @Override
     public boolean isEnabled() {
-        return plugin.getConfig().getBoolean("Abilities.FlameLeap.Enabled");
+        return plugin.getConfig().getBoolean("Abilities.Fire.FlameLeap.Enabled");
     }
 
     public void jumpPlayer() {
