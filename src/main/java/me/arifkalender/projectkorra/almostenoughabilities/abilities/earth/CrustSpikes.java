@@ -1,6 +1,7 @@
 package me.arifkalender.projectkorra.almostenoughabilities.abilities.earth;
 
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.EarthAbility;
@@ -232,7 +233,7 @@ public class CrustSpikes extends EarthAbility implements AddonAbility {
 
     @Override
     public void load() {
-
+        ProjectKorra.plugin.getServer().getLogger().fine("Loaded " + getName());
     }
 
     @Override

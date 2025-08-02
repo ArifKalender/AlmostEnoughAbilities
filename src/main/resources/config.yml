@@ -53,7 +53,7 @@ Strings:
       Instructions: 'Left click, this enables the ability. You can click consecutively, each using one charge.'
     Dissipation:
       Description: 'Block your enemies Fire abilities either via an uncontrolled explosion or a controlled diffusion.'
-      Instructions: 'Hold sneak and left click. A fire will appear in front of you, if you detect a fire ability in front of you it will dissipate. If the user is holding sneak it will be uncontrolled.'
+      Instructions: "Hold sneak and left click. A fire will appear in front of you; if you detect a fire ability in front of you it will dissipate. Holding sneak makes it uncontrolled."
     BlazeRush:
       Description: 'Use your FireBending to dash through your enemies and pierce them with flames.'
       Instructions: 'Hold sneak and left click.'

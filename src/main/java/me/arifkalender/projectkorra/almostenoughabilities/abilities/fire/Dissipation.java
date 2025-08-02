@@ -2,6 +2,7 @@ package me.arifkalender.projectkorra.almostenoughabilities.abilities.fire;
 
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.FireAbility;
@@ -208,7 +209,7 @@ public class Dissipation extends FireAbility implements AddonAbility {
 
     @Override
     public void load() {
-
+        ProjectKorra.plugin.getServer().getLogger().fine("Loaded " + getName());
     }
 
     @Override
