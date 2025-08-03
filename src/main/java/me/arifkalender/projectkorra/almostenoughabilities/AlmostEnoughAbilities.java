@@ -3,6 +3,7 @@ package me.arifkalender.projectkorra.almostenoughabilities;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.CrustSpikesListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.DensityAlterationListener;
+import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.TremorWaveListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.BlazeRushListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.DissipationListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.FlameLeapListener;
@@ -30,13 +31,13 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(version + "§a was enabled!");
     }
     private void registerListeners(){
-
         plugin.getServer().getPluginManager().registerEvents(new ReloadEvent(), this);
         plugin.getServer().getPluginManager().registerEvents(new FlameLeapListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new DissipationListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new BlazeRushListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new CrustSpikesListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new DensityAlterationListener(), this);
-        plugin.getServer().getPluginManager().registerEvents(new BlazeRushListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new TremorWaveListener(), this);
     }
 
     @Override

@@ -23,9 +23,9 @@ Abilities:
       Enabled: true
       Controllable: false
       Cooldown: 11000
-      Duration: 3000
+      Duration: 500
       FireTicks: 20
-      Speed: 1.1
+      Speed: 1.5
       Damage: 1.0
   Earth:
     CrustSpikes:
@@ -46,6 +46,13 @@ Abilities:
       ChargeDuration: 500
       Duration: 2000
       Radius: 7.5
+    TremorWave:
+      Enabled: true
+      Cooldown: 15000
+      Duration: 3000
+      Damage: 2.0
+      Radius: 2.5
+      Speed: 1.5
 Strings:
   Fire:
     FlameLeap:
@@ -64,3 +71,6 @@ Strings:
     DensityAlteration:
       Description: 'Densify the earth-bendable ground to suck entities towards a centre.'
       Instructions: 'Hold sneak to charge, release sneak to release.'
+    TremorWave:
+      Description: 'Drag the earth beneath you to create a wave, damaging entities on its path.'
+      Instructions: 'Hold sneak and right click an earth-bendable block.'
