@@ -68,7 +68,7 @@ public class Dissipation extends FireAbility implements AddonAbility {
 
     @Override
     public void progress() {
-        if (this.getStartTime() + duration <= System.currentTimeMillis()) {
+        if (this.getStartTime() + duration <= System.currentTimeMillis() || !bPlayer.getBoundAbilityName().equalsIgnoreCase(getName())) {
             remove();
             bPlayer.addCooldown(this);
             return;

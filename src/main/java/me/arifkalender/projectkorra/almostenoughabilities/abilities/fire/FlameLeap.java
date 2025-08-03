@@ -62,7 +62,7 @@ public class FlameLeap extends FireAbility implements AddonAbility {
     List<Entity> damaged = new ArrayList<>();
     @Override
     public void progress() {
-        if (this.getStartTime() + duration < System.currentTimeMillis() || maxJumps <= 0) {
+        if (this.getStartTime() + duration < System.currentTimeMillis() || maxJumps <= 0 || !bPlayer.getBoundAbilityName().equalsIgnoreCase(getName())) {
             remove();
             bPlayer.addCooldown(this);
             return;

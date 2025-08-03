@@ -93,13 +93,9 @@ public class BlazeRush extends FireAbility implements AddonAbility {
         }
         if (controllable) direction = player.getEyeLocation().getDirection().normalize().multiply(speed);
         player.setVelocity(direction);
-//        if (bPlayer.hasElement(Element.BLUE_FIRE) && bPlayer.isElementToggled(Element.BLUE_FIRE)) {
-//            player.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, player.getLocation(), 18, 1.5, 1.5, 1.5, 0.05f);
-//        } else {
-//            player.getWorld().spawnParticle(Particle.FLAME, player.getLocation(), 18, 1.5, 1.5, 1.5, 0.05f);
-//        }
 
-        formSpiral(0.5);
+        player.getWorld().spawnParticle(Particle.SMOKE, player.getLocation(), 18, 0.15, 0.15, 0.15, 0.1f);
+        formSpiral(0.85);
         for (Entity entity : GeneralMethods.getEntitiesAroundPoint(player.getLocation(), 2)) {
             if (entity instanceof Damageable && entity != player) {
                 entity.setFireTicks(fireTicks);
@@ -107,10 +103,12 @@ public class BlazeRush extends FireAbility implements AddonAbility {
             }
         }
     }
+
     private double angle = 0;
     private final double angularSpeed = Math.PI * 1.5; // radians per second, bump for faster
     private long lastTime = System.currentTimeMillis();
     private final double spiralExpansionPerRevolution = 0; // >0 makes radius grow each loop
+
     private void formSpiral(double baseRadius) {
         Location center = player.getLocation();
 
@@ -136,7 +134,6 @@ public class BlazeRush extends FireAbility implements AddonAbility {
 
         center.getWorld().spawnParticle(particle, center.clone().add(offset), 3, 0.1, 0.1, 0.1, 0.05);
     }
-
 
 
     public static void setRiptide(Player player, boolean active) {
