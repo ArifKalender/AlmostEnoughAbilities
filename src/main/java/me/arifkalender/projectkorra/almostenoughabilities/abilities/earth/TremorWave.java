@@ -50,19 +50,16 @@ public class TremorWave extends EarthAbility implements AddonAbility {
         if(!bPlayer.canBend(this) || this.duration + this.getStartTime() < System.currentTimeMillis() ||
                 !bPlayer.getBoundAbilityName().equalsIgnoreCase(getName())){
             remove();
-            player.sendMessage("1");
             bPlayer.addCooldown(this);
             return;
         }
-        if(location.getBlock().getType() != Material.AIR && !isEarthbendable(location.getBlock())){
+        if(!location.getBlock().isPassable() && !isEarthbendable(location.getBlock())){
             remove();
-            player.sendMessage("3");
             bPlayer.addCooldown(this);
             return;
 
         }
         if(!player.isOnline() || player.isDead()){
-            player.sendMessage("2");
             remove();
             bPlayer.addCooldown(this);
             return;
@@ -97,7 +94,7 @@ public class TremorWave extends EarthAbility implements AddonAbility {
                     this.cancel();
                 }
                 if(isEarthbendable(leftOrigin.getBlock())){
-                    if(!leftOrigin.getBlock().equals(origin.getBlock())){
+                    if(leftOrigin.distance(origin)>1.25){
                         Material type = leftOrigin.getBlock().getType();
                         new TempBlock(leftOrigin.getBlock(), Material.AIR.createBlockData(), 100, CoreAbility.getAbility(TremorWave.class));
                         new TempFallingBlock(leftOrigin, type.createBlockData(), new Vector(0,0.1,0), CoreAbility.getAbility(TremorWave.class));
@@ -129,7 +126,7 @@ public class TremorWave extends EarthAbility implements AddonAbility {
                     this.cancel();
                 }
                 if(isEarthbendable(rightOrigin.getBlock())){
-                    if(!rightOrigin.getBlock().equals(origin.getBlock())){
+                    if(rightOrigin.distance(origin)>1.25){
                         Material type = rightOrigin.getBlock().getType();
                         new TempBlock(rightOrigin.getBlock(), Material.AIR.createBlockData(), 100, CoreAbility.getAbility(TremorWave.class));
                         new TempFallingBlock(rightOrigin, type.createBlockData(), new Vector(0,0.1,0), CoreAbility.getAbility(TremorWave.class));
