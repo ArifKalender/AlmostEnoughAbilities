@@ -14,6 +14,7 @@ import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities;
+import me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -46,8 +47,6 @@ public class BlazeRush extends FireAbility implements AddonAbility {
     private int fireTicks;
     private boolean controllable;
     Vector direction;
-    int points = 16;
-    int i = 0;
     private static Set<Player> SPINNING = new HashSet<>();
     Particle particle;
 
@@ -93,9 +92,9 @@ public class BlazeRush extends FireAbility implements AddonAbility {
         }
         if (controllable) direction = player.getEyeLocation().getDirection().normalize().multiply(speed);
         player.setVelocity(direction);
-
         player.getWorld().spawnParticle(Particle.SMOKE, player.getLocation(), 18, 0.15, 0.15, 0.15, 0.1f);
         formSpiral(0.85);
+        bumpRemoval();
         for (Entity entity : GeneralMethods.getEntitiesAroundPoint(player.getLocation(), 2)) {
             if (entity instanceof Damageable && entity != player) {
                 entity.setFireTicks(fireTicks);
@@ -133,9 +132,9 @@ public class BlazeRush extends FireAbility implements AddonAbility {
         Vector offset = right.clone().multiply(x).add(forward.clone().multiply(y));
 
         center.getWorld().spawnParticle(particle, center.clone().add(offset), 3, 0.1, 0.1, 0.1, 0.05);
+
+
     }
-
-
     public static void setRiptide(Player player, boolean active) {
         if (active) {
             List<EntityData<?>> data = List.of(
@@ -158,6 +157,25 @@ public class BlazeRush extends FireAbility implements AddonAbility {
             }
         }
     }
+    private void bumpRemoval(){
+        Location bump = player.getLocation();
+        bump.add(direction);
+        if(!bump.getBlock().isPassable()){
+            bump=player.getLocation();
+            List<Location> particles = UtilizationMethods.getRingXZ(bump, 3, 99);
+            bump.getWorld().spawnParticle(Particle.FLASH, bump, 1, 0,0,0,0);
+            bump.getWorld().spawnParticle(Particle.CLOUD, bump, 99, 0.1,0.1,0.1,0.2);
+            bump.getWorld().spawnParticle(particle, bump, 99, 0.1,0.1,0.1,0.2);
+            for(Location particle : particles){
+                Vector target = particle.toVector().subtract(bump.toVector());
+                particle.getWorld().spawnParticle(Particle.CLOUD, bump, 0, target.getX(),target.getY(),target.getZ(),0.1);
+            }
+            remove();
+            bPlayer.addCooldown(this);
+            setRiptide(player,false);
+        }
+    }
+
 
     @Override
     public boolean isSneakAbility() {
