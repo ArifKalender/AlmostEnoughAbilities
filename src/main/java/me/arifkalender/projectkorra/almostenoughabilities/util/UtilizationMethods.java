@@ -1,7 +1,9 @@
 package me.arifkalender.projectkorra.almostenoughabilities.util;
 
+import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
 
@@ -72,6 +74,13 @@ public class UtilizationMethods {
         }
 
         return locations;
+    }
+
+
+    public static void playWaterSelectParticles(Location location){
+        location.getWorld().spawnParticle(Particle.RAIN, location, 3, 0,0,0,0.05);
+        location.getWorld().spawnParticle(Particle.RAIN, location, 3, 0,0,0,0.05);
+        GeneralMethods.displayColoredParticle("#2992e3", location);
     }
 
 }

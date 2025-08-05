@@ -53,6 +53,16 @@ Abilities:
       Damage: 2.0
       Radius: 2.5
       Speed: 1.5
+  Water:
+    Congelation:
+      Enabled: true
+      Cooldown: 12000
+      Duration: 3000
+      Height: 6
+      Damage: 0.0
+      Speed: 1.5
+      SelectRange: 8
+      Range: 25
 Strings:
   Fire:
     FlameLeap:
@@ -74,3 +84,7 @@ Strings:
     TremorWave:
       Description: 'Drag the earth beneath you to create a wave, damaging entities on its path.'
       Instructions: 'Hold sneak and right click an earth-bendable block.'
+  Water:
+    Congelation:
+      Description: 'Control water towards your enemies, freeze them in a hunk of ice for a duration.'
+      Instructions: 'Tap sneak to select a source, left click towards your target.'
