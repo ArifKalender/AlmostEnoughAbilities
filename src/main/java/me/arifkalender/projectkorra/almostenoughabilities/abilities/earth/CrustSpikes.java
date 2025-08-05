@@ -173,7 +173,7 @@ public class CrustSpikes extends EarthAbility implements AddonAbility {
 
                     for (Entity entity : GeneralMethods.getEntitiesAroundPoint(location, 1)) {
                         if (!damaged.contains(entity) && entity != player && entity instanceof Damageable) {
-                            DamageHandler.damageEntity(entity, player, damage, CoreAbility.getAbility(CrustSpikes.class));
+                            if(damage > 0) DamageHandler.damageEntity(entity, player, damage, CoreAbility.getAbility(CrustSpikes.class));
                             entity.setVelocity(vector.multiply(0.6));
                             damaged.add(entity);
                         }

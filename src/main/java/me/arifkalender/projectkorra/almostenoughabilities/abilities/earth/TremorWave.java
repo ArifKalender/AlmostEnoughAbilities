@@ -100,7 +100,7 @@ public class TremorWave extends EarthAbility implements AddonAbility {
                         new TempFallingBlock(leftOrigin, type.createBlockData(), new Vector(0,0.1,0), CoreAbility.getAbility(TremorWave.class));
                         for(Entity entity : GeneralMethods.getEntitiesAroundPoint(leftOrigin, 1)){
                             if(entity instanceof Damageable && entity != player){
-                                DamageHandler.damageEntity(entity, player, damage, CoreAbility.getAbility(TremorWave.class));
+                                if(damage > 0) DamageHandler.damageEntity(entity, player, damage, CoreAbility.getAbility(TremorWave.class));
                             }
                         }
                     }

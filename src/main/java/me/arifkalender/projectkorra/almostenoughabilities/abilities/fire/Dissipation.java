@@ -167,7 +167,7 @@ public class Dissipation extends FireAbility implements AddonAbility {
                     //Damage logic
                     for(Entity entity : GeneralMethods.getEntitiesAroundPoint(point, 1)){
                         if(entity instanceof Damageable && entity != player){
-                            DamageHandler.damageEntity(entity, uncontrolledDamage, CoreAbility.getAbility(Dissipation.class));
+                            if(uncontrolledRadius > 0) DamageHandler.damageEntity(entity, uncontrolledDamage, CoreAbility.getAbility(Dissipation.class));
                         }
                     }
                 }

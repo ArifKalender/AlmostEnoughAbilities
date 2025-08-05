@@ -80,7 +80,7 @@ public class FlameLeap extends FireAbility implements AddonAbility {
             if(entity instanceof Damageable){
                 if(!damaged.contains(entity) && entity != player){
                     damaged.add(entity);
-                    DamageHandler.damageEntity(entity, damage, this);
+                    if(damage > 0) DamageHandler.damageEntity(entity, damage, this);
                     entity.setFireTicks(fireTicks);
                 }
             }

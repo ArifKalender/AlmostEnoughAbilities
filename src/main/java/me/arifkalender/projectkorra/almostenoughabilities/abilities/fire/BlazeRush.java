@@ -98,7 +98,7 @@ public class BlazeRush extends FireAbility implements AddonAbility {
         for (Entity entity : GeneralMethods.getEntitiesAroundPoint(player.getLocation(), 2)) {
             if (entity instanceof Damageable && entity != player) {
                 entity.setFireTicks(fireTicks);
-                DamageHandler.damageEntity(entity, damage, this);
+                if(damage > 0) DamageHandler.damageEntity(entity, damage, this);
             }
         }
     }
