@@ -38,6 +38,8 @@ public class FlameLeap extends FireAbility implements AddonAbility {
     @Attribute(Attribute.KNOCKBACK)
     private double xzPower;
     private double yPower;
+    private boolean leapBuff;
+    private Vector buffIncrement;
 
 
     public FlameLeap(Player player) {
@@ -56,6 +58,8 @@ public class FlameLeap extends FireAbility implements AddonAbility {
         this.damage = plugin.getConfig().getDouble("Abilities.Fire.FlameLeap.Damage");
         this.xzPower = plugin.getConfig().getDouble("Abilities.Fire.FlameLeap.XZPower");
         this.yPower = plugin.getConfig().getDouble("Abilities.Fire.FlameLeap.YPower");
+        this.leapBuff = plugin.getConfig().getBoolean("Abilities.Fire.FlameLeap.LeapBuff");
+
     }
 
 
@@ -182,6 +186,10 @@ public class FlameLeap extends FireAbility implements AddonAbility {
         jump.setX(jump.getX() * xzPower);
         jump.setZ(jump.getZ() * xzPower);
         jump.setY(yPower);
+        if(leapBuff){
+            xzPower = xzPower*1.3333;
+            yPower = yPower * 1.3333;
+        }
         if(player.isSneaking()){
             jump=jump.multiply(-1);
             jump.setY(yPower);
@@ -193,6 +201,7 @@ public class FlameLeap extends FireAbility implements AddonAbility {
         spawnBoom(player.getLocation());
         maxJumps--;
         damaged.clear();
+
         if (maxJumps <= 0) {
             remove();
             bPlayer.addCooldown(this);
