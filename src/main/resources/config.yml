@@ -57,10 +57,10 @@ Abilities:
     Congelation:
       Enabled: true
       Cooldown: 12000
-      Duration: 3000
-      KnockUp: 2
+      Duration: 1000
+      KnockUp: 0.5
       Damage: 0.0
-      Speed: 1.5
+      Speed: 0.6
       SelectRange: 8
       Range: 25
 Strings:

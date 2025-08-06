@@ -79,7 +79,6 @@ public class UtilizationMethods {
 
     public static void playWaterSelectParticles(Location location){
         location.getWorld().spawnParticle(Particle.RAIN, location, 3, 0,0,0,0.05);
-        location.getWorld().spawnParticle(Particle.RAIN, location, 3, 0,0,0,0.05);
         GeneralMethods.displayColoredParticle("#2992e3", location);
     }
 
