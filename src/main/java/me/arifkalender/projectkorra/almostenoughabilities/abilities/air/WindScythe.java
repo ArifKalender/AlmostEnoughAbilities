@@ -48,15 +48,13 @@ public class WindScythe extends AirAbility implements AddonAbility {
         location=player.getLocation();
         origin=location.clone();
         bPlayer.addCooldown(this);
-        direction.setX(location.getDirection().getX());
-        direction.setZ(location.getDirection().getZ());
-        direction.setY(0);
+        direction = new Vector(location.getDirection().getX(), 0, location.getDirection().getZ());
         direction = direction.normalize();
     }
 
     @Override
     public void progress() {
-        if(!bPlayer.canBendIgnoreCooldowns(this) && origin.distance(location)>=range){
+        if(!bPlayer.canBendIgnoreCooldowns(this) || origin.distance(location)>=range){
             remove();
             return;
         }
@@ -67,12 +65,12 @@ public class WindScythe extends AirAbility implements AddonAbility {
         replaceCrop(location.getBlock());
         Location left = location.clone();
         Location right = location.clone();
-        playAirbendingParticles(location, 1);
+        playAirbendingParticles(location, 5, 0.1, 0.1, 0.1);
         for(double i = 0; i <= (location.distance(origin)/2); i++){
             left = GeneralMethods.getLeftSide(left, widthIncrement);
             right = GeneralMethods.getRightSide(right, widthIncrement);
-            playAirbendingParticles(left, 1);
-            playAirbendingParticles(right, 1);
+            playAirbendingParticles(left, 5, 0.1, 0.1, 0.1);
+            playAirbendingParticles(right, 5, 0.1, 0.1, 0.1);
             replaceCrop(left.getBlock());
             replaceCrop(right.getBlock());
         }

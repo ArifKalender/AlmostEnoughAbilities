@@ -67,9 +67,9 @@ Abilities:
     WindScythe:
       Enabled: true
       Cooldown: 1000
-      Range: 5
+      Range: 8
       Damage: 0.0
-      WidthIncrement: 0.1
+      WidthIncrement: 0.5
 Strings:
   Fire:
     FlameLeap:
@@ -95,3 +95,7 @@ Strings:
     Congelation:
       Description: 'Control water towards your enemies, freeze them in a hunk of ice for a duration.'
       Instructions: 'Tap sneak to select a source, left click towards your target.'
+  Air:
+    WindScythe:
+      Description: 'Form a strong and sharp body of wind to carefully harvest your crops'
+      Instructions: 'Left click'
