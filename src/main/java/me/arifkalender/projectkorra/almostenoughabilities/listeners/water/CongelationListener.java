@@ -1,5 +1,6 @@
 package me.arifkalender.projectkorra.almostenoughabilities.listeners.water;
 
+import com.projectkorra.projectkorra.BendingPlayer;
 import me.arifkalender.projectkorra.almostenoughabilities.abilities.water.Congelation;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +14,12 @@ public class CongelationListener implements Listener {
 
     @EventHandler
     private void onSneak(PlayerToggleSneakEvent event){
-
+        if (event.isSneaking()) {
+            BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(event.getPlayer());
+            if(bPlayer.getBoundAbilityName().equalsIgnoreCase("Congelation")){
+                new Congelation(event.getPlayer());
+            }
+        }
     }
 
     @EventHandler

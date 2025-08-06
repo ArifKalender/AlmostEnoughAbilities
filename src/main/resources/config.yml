@@ -58,7 +58,7 @@ Abilities:
       Enabled: true
       Cooldown: 12000
       Duration: 3000
-      Height: 6
+      KnockUp: 2
       Damage: 0.0
       Speed: 1.5
       SelectRange: 8

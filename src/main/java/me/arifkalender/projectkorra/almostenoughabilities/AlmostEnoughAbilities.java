@@ -7,6 +7,7 @@ import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.Tremor
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.BlazeRushListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.DissipationListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.FlameLeapListener;
+import me.arifkalender.projectkorra.almostenoughabilities.listeners.water.CongelationListener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,6 +39,7 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         plugin.getServer().getPluginManager().registerEvents(new CrustSpikesListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new DensityAlterationListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new TremorWaveListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new CongelationListener(), this);
     }
 
     @Override
