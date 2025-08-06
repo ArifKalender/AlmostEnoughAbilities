@@ -3,11 +3,16 @@ package me.arifkalender.projectkorra.almostenoughabilities.util;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
+import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class UtilizationMethods {
@@ -82,4 +87,12 @@ public class UtilizationMethods {
         GeneralMethods.displayColoredParticle("#2992e3", location);
     }
 
+    private static List<Material> ignoreReplaceCrop = new ArrayList<>();
+    public static void fillIgnoredCrops(){
+        ignoreReplaceCrop.add(Material.MELON_STEM);
+        ignoreReplaceCrop.add(Material.PUMPKIN_STEM);
+    }
+    public static boolean isIgnored(Material type){
+        return ignoreReplaceCrop.contains(type);
+    }
 }

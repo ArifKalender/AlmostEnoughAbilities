@@ -63,6 +63,13 @@ Abilities:
       Speed: 0.6
       SelectRange: 8
       Range: 25
+  Air:
+    WindScythe:
+      Enabled: true
+      Cooldown: 1000
+      Range: 5
+      Damage: 0.0
+      WidthIncrement: 0.1
 Strings:
   Fire:
     FlameLeap:
