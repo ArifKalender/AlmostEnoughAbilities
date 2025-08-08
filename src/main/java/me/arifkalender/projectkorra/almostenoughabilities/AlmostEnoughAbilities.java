@@ -9,6 +9,7 @@ import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.BlazeRu
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.DissipationListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.fire.FlameLeapListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.water.CongelationListener;
+import me.arifkalender.projectkorra.almostenoughabilities.listeners.water.HydrationListener;
 import me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -44,6 +45,7 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         plugin.getServer().getPluginManager().registerEvents(new TremorWaveListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new CongelationListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new WindScytheListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new HydrationListener(), this);
     }
     private void setFields(){
         UtilizationMethods.fillIgnoredCrops();

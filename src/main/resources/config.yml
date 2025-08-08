@@ -63,6 +63,11 @@ Abilities:
       Speed: 0.6
       SelectRange: 8
       Range: 25
+    Hydration:
+      Enabled: true
+      Power: 5.0
+      WaterSearchRadius: 3.0
+      EffectRadius: 2.0
   Air:
     WindScythe:
       Enabled: true
@@ -95,6 +100,9 @@ Strings:
     Congelation:
       Description: 'Control water towards your enemies, freeze them in a hunk of ice for a duration.'
       Instructions: 'Tap sneak to select a source, left click towards your target.'
+    Hydration:
+      Description: 'Water nearby crops to grow them faster'
+      Instructions: 'While near any body of and any crop hold sneak'
   Air:
     WindScythe:
       Description: 'Form a strong and sharp body of wind to carefully harvest your crops'
