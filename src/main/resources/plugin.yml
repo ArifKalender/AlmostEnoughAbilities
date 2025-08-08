@@ -4,5 +4,4 @@ main: me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities
 api-version: '1.21'
 Dependencies:
   - ProjectKorra
-  - PacketEvents
 author: 'Kugelbltz'

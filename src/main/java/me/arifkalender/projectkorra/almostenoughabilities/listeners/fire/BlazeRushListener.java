@@ -22,16 +22,10 @@ public class BlazeRushListener implements Listener {
 
     @EventHandler
     private void onJoin(PlayerJoinEvent event){
-        if(BlazeRush.getSpinningPlayers().contains(event.getPlayer())){
-            BlazeRush.setRiptide(event.getPlayer(),false);
-            BlazeRush.getSpinningPlayers().remove(event.getPlayer());
-        }
+        event.getPlayer().setRiptiding(false);
     }
     @EventHandler
     private void onRespawn(PlayerRespawnEvent event){
-        if(BlazeRush.getSpinningPlayers().contains(event.getPlayer())) {
-            BlazeRush.setRiptide(event.getPlayer(),false);
-            BlazeRush.getSpinningPlayers().remove(event.getPlayer());
-        }
+        event.getPlayer().setRiptiding(false);
     }
 }

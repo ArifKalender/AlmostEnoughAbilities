@@ -1,9 +1,5 @@
 package me.arifkalender.projectkorra.almostenoughabilities.abilities.fire;
 
-import com.github.retrooper.packetevents.PacketEvents;
-import com.github.retrooper.packetevents.protocol.entity.data.EntityData;
-import com.github.retrooper.packetevents.protocol.entity.data.EntityDataTypes;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityMetadata;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ProjectKorra;
@@ -55,7 +51,7 @@ public class BlazeRush extends FireAbility implements AddonAbility {
         if (bPlayer.canBend(this) && !hasAbility(player, BlazeRush.class)) {
             setFields();
             SPINNING.add(player);
-            setRiptide(player, true);
+            player.setRiptiding(true);
             start();
         }
     }
@@ -82,7 +78,7 @@ public class BlazeRush extends FireAbility implements AddonAbility {
             remove();
             bPlayer.addCooldown(this);
             SPINNING.remove(player);
-            setRiptide(player, false);
+            player.setRiptiding(false);
             return;
         }
         if (!player.isOnline() || player.isDead()) {
@@ -104,7 +100,7 @@ public class BlazeRush extends FireAbility implements AddonAbility {
     }
 
     private double angle = 0;
-    private final double angularSpeed = Math.PI * 1.5; // radians per second, bump for faster
+    private final double angularSpeed = Math.PI * 4; // radians per second, bump for faster
     private long lastTime = System.currentTimeMillis();
     private final double spiralExpansionPerRevolution = 0; // >0 makes radius grow each loop
 
@@ -135,28 +131,7 @@ public class BlazeRush extends FireAbility implements AddonAbility {
 
 
     }
-    public static void setRiptide(Player player, boolean active) {
-        if (active) {
-            List<EntityData<?>> data = List.of(
-                    new EntityData<>(8, EntityDataTypes.BYTE, (byte) 0x04)
-            );
-            WrapperPlayServerEntityMetadata setData = new WrapperPlayServerEntityMetadata(player.getEntityId(), data);
 
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                PacketEvents.getAPI().getPlayerManager().sendPacket(p, setData);
-            }
-        } else {
-            // Send a new metadata packet to clear the flag
-            List<EntityData<?>> data = List.of(
-                    new EntityData<>(8, EntityDataTypes.BYTE, (byte) 0x00)
-            );
-            WrapperPlayServerEntityMetadata unsetData = new WrapperPlayServerEntityMetadata(player.getEntityId(), data);
-
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                PacketEvents.getAPI().getPlayerManager().sendPacket(p, unsetData);
-            }
-        }
-    }
     private void bumpRemoval(){
         Location bump = player.getLocation();
         bump.add(direction);
@@ -172,7 +147,7 @@ public class BlazeRush extends FireAbility implements AddonAbility {
             }
             remove();
             bPlayer.addCooldown(this);
-            setRiptide(player,false);
+            player.setRiptiding(false);
         }
     }
 
