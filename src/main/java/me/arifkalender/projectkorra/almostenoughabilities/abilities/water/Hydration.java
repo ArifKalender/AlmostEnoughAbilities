@@ -34,7 +34,6 @@ public class Hydration extends PlantAbility implements AddonAbility, SubAbility 
     public Hydration(Player player) {
         super(player);
         if(bPlayer.canBend(this) && !hasAbility(player, Hydration.class)){
-            player.sendMessage("sa");
             setFields();
             start();
         }
@@ -50,7 +49,6 @@ public class Hydration extends PlantAbility implements AddonAbility, SubAbility 
     List<Block> nearbyBlocks = new ArrayList<>();
     @Override
     public void progress() {
-        player.sendMessage("!!!");
         if(!player.isOnline() || player.isDead()){
             remove();
             return;
@@ -70,17 +68,12 @@ public class Hydration extends PlantAbility implements AddonAbility, SubAbility 
         }
 
         if(canGrow){
-            player.sendMessage("cangrow");
             for(Block block : GeneralMethods.getBlocksAroundPoint(player.getLocation(), effectRadius)){
-                player.sendMessage("blocks");
                 if(block.getBlockData() instanceof Ageable){
-                    player.sendMessage("ageable");
                     block.getWorld().spawnParticle(Particle.RAIN, block.getLocation().add(0,0.2,0), 2, 0.5, 0.1, 0.5, 0.05);
                     if(random.nextDouble(0,100)<=power){
-                        player.sendMessage("random");
                         Ageable ageable = (Ageable) block.getBlockData();
                         if(ageable.getAge() < ageable.getMaximumAge()){
-                            player.sendMessage("maxage");
                             block.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, block.getLocation().add(0,0.2,0), 2, 0.5, 0.1, 0.5, 0.05);
                             ageable.setAge(ageable.getAge()+1);
                             block.setBlockData(ageable);
