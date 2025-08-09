@@ -60,9 +60,11 @@ Abilities:
       Duration: 1000
       KnockUp: 0.5
       Damage: 0.0
-      Speed: 0.6
+      Speed: 6
       SelectRange: 8
       Range: 25
+      MaxHeight: 8
+      Radius: 2.2
     Hydration:
       Enabled: true
       Power: 5.0
