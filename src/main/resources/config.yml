@@ -73,10 +73,9 @@ Abilities:
   Air:
     WindScythe:
       Enabled: true
-      Cooldown: 1000
-      Range: 8
-      Damage: 0.0
-      WidthIncrement: 0.5
+      Cooldown: 2000
+      Range: 5
+      Width: 5
 Strings:
   Fire:
     FlameLeap:

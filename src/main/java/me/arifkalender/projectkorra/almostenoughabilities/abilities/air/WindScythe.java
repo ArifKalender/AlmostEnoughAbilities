@@ -10,6 +10,7 @@ import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.attribute.Attribute;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.plugin;
+import static me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities.version;
 import static me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods.isIgnored;
 
 public class WindScythe extends AirAbility implements AddonAbility {
@@ -25,16 +27,15 @@ public class WindScythe extends AirAbility implements AddonAbility {
     private long cooldown;
     @Attribute(Attribute.RANGE)
     private double range;
-    @Attribute(Attribute.DAMAGE)
-    private double damage;
-    @Attribute("WidthIncrement")
-    private double widthIncrement;
+    @Attribute(Attribute.WIDTH)
+    private double width;
 
     private Vector direction;
     private Location location, origin;
+    private Location rightPoint, leftPoint, temp;
     public WindScythe(Player player) {
         super(player);
-        if(bPlayer.canBend(this)){
+        if(bPlayer.canBend(this) && !hasAbility(player, WindScythe.class)){
             setFields();
             start();
         }
@@ -42,39 +43,48 @@ public class WindScythe extends AirAbility implements AddonAbility {
     private void setFields(){
         cooldown=plugin.getConfig().getLong("Abilities.Air.WindScythe.Cooldown");
         range=plugin.getConfig().getDouble("Abilities.Air.WindScythe.Range");
-        damage=plugin.getConfig().getDouble("Abilities.Air.WindScythe.Damage");
-        widthIncrement=plugin.getConfig().getDouble("Abilities.Air.WindScythe.WidthIncrement");
+        width =plugin.getConfig().getDouble("Abilities.Air.WindScythe.Width");
 
         location=player.getLocation().add(0,0.1,0);
         origin=location.clone();
         bPlayer.addCooldown(this);
         direction = new Vector(location.getDirection().getX(), 0, location.getDirection().getZ());
         direction = direction.normalize();
+        rightPoint = GeneralMethods.getRightSide(location.clone().add(direction.clone().multiply(range)), width);
+        leftPoint = GeneralMethods.getLeftSide(location.clone().add(direction.clone().multiply(range)), width);
+        temp=rightPoint.clone();
     }
 
     @Override
     public void progress() {
-        if(!bPlayer.canBendIgnoreCooldowns(this) || origin.distance(location)>=range){
+        if(!bPlayer.canBendIgnoreCooldowns(this)){
             remove();
             return;
         }
-        progressLocation();
-    }
-    private void progressLocation(){
-        location.add(direction);
-        replaceCrop(location.getBlock());
-        Location left = location.clone();
-        Location right = location.clone();
-        playAirbendingParticles(location, 5, 0.1, 0.1, 0.1);
-        for(double i = 0; i <= (location.distance(origin)/2); i++){
-            left = GeneralMethods.getLeftSide(left, widthIncrement);
-            right = GeneralMethods.getRightSide(right, widthIncrement);
-            playAirbendingParticles(left, 5, 0.1, 0.1, 0.1);
-            playAirbendingParticles(right, 5, 0.1, 0.1, 0.1);
-            replaceCrop(left.getBlock());
-            replaceCrop(right.getBlock());
+        temp = GeneralMethods.getLeftSide(temp, 0.3);
+        if(temp.distance(leftPoint)<=0.6){
+            remove();
+            player.sendMessage("mesafe < 0.6");
+            return;
         }
+
+        sweepAnimation();
     }
+
+    private void sweepAnimation(){
+        location=origin.clone();
+        for(double i = 0; i<=range; i+=0.45) {
+            location.add(temp.toVector().subtract(location.toVector()).normalize().multiply(0.45));
+            if(!location.getBlock().isPassable()){
+                break;
+            }
+            playAirbendingParticles(location,1,0.05,0.05,0.05);
+            replaceCrop(location.getBlock());
+        }
+
+    }
+
+
 
     private void replaceCrop(Block block){
         if(block.getBlockData() instanceof Ageable){
@@ -140,7 +150,7 @@ public class WindScythe extends AirAbility implements AddonAbility {
 
     @Override
     public Location getLocation() {
-        return null;
+        return location;
     }
 
     @Override
@@ -155,11 +165,26 @@ public class WindScythe extends AirAbility implements AddonAbility {
 
     @Override
     public String getAuthor() {
-        return "";
+        return "Kugelbltz";
     }
 
     @Override
     public String getVersion() {
-        return "";
+        return version;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return plugin.getConfig().getBoolean("Abilities.Air.WindScythe.Enabled");
+    }
+
+        @Override
+    public String getInstructions() {
+        return plugin.getConfig().getString("Strings.Air.WindScythe.Instructions");
+    }
+
+    @Override
+    public String getDescription() {
+        return plugin.getConfig().getString("Strings.Air.WindScythe.Description");
     }
 }
