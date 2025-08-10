@@ -34,7 +34,7 @@ public class WindScythe extends AirAbility implements AddonAbility {
     private Location location, origin;
     public WindScythe(Player player) {
         super(player);
-        if(bPlayer.canBendIgnoreCooldowns(this)){
+        if(bPlayer.canBend(this)){
             setFields();
             start();
         }
@@ -45,7 +45,7 @@ public class WindScythe extends AirAbility implements AddonAbility {
         damage=plugin.getConfig().getDouble("Abilities.Air.WindScythe.Damage");
         widthIncrement=plugin.getConfig().getDouble("Abilities.Air.WindScythe.WidthIncrement");
 
-        location=player.getLocation();
+        location=player.getLocation().add(0,0.1,0);
         origin=location.clone();
         bPlayer.addCooldown(this);
         direction = new Vector(location.getDirection().getX(), 0, location.getDirection().getZ());
@@ -89,7 +89,7 @@ public class WindScythe extends AirAbility implements AddonAbility {
     }
     private void dropCrop(Material type, Location location){
         switch (type){
-            case WHEAT_SEEDS -> {
+            case WHEAT -> {
                 location.getWorld().dropItem(location, new ItemStack(Material.WHEAT_SEEDS));
                 location.getWorld().dropItem(location, new ItemStack(Material.WHEAT));
             }
