@@ -13,6 +13,7 @@ import me.arifkalender.projectkorra.almostenoughabilities.listeners.water.Hydrat
 import me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Random;
 
@@ -32,7 +33,14 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         plugin=this;
         registerListeners();
         setFields();
-        CoreAbility.registerPluginAbilities(this, "me.arifkalender.projectkorra.almostenoughabilities.abilities");
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                CoreAbility.registerPluginAbilities((JavaPlugin) plugin, "me.arifkalender.projectkorra.almostenoughabilities.abilities");
+            }
+        }.runTaskLater(plugin, 10);
+
+
         getServer().getConsoleSender().sendMessage(version + "§a was enabled!");
     }
     private void registerListeners(){
