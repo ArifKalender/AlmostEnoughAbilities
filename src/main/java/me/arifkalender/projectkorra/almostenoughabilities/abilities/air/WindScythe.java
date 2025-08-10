@@ -64,7 +64,6 @@ public class WindScythe extends AirAbility implements AddonAbility {
         temp = GeneralMethods.getLeftSide(temp, 0.3);
         if(temp.distance(leftPoint)<=0.6){
             remove();
-            player.sendMessage("mesafe < 0.6");
             return;
         }
 
