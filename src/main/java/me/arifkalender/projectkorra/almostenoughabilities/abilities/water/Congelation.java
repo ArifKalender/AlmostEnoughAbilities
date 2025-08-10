@@ -102,6 +102,21 @@ public class Congelation extends IceAbility implements AddonAbility, SubAbility 
         while(location.distance(previousLocation) <= speed/5){
             location.add(direction.normalize().multiply(0.1));
             TempBlockDisplay tBD = new TempBlockDisplay(location.clone().add(random.nextDouble(-0.5,0.5),random.nextDouble(0,0.1),random.nextDouble(-0.5,0.5)), Material.BLUE_ICE.createBlockData(), 40, 0.6f);
+            tBD.getBlockDisplay().setTeleportDuration(4);
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    tBD.getBlockDisplay().teleport(tBD.getBlockDisplay().getLocation().add(0,1,0));
+                    new BukkitRunnable(){
+                        @Override
+                        public void run() {
+                            tBD.getBlockDisplay().teleport(tBD.getBlockDisplay().getLocation().add(0,-1,0));
+                        }
+                    }.runTaskLater(plugin,5);
+                }
+            }.runTaskLater(plugin, 5);
+
+
             location.getWorld().playSound(location, Sound.BLOCK_SNOW_BREAK, 1, 0);
             entityDetection(location);
         }
