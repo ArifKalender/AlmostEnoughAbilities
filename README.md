@@ -17,10 +17,21 @@
 - [BlazeRush](https://www.youtube.com/watch?v=mM9uKBWTLRk)
 > Use your FireBending to dash through your enemies and pierce them with flames.
 
+**Water**
+* [Hydration](https://www.youtube.com/watch?v=qFYSSJ0Y8zo)
+> Water nearby crops to grow them faster
+* [Congelation](https://www.youtube.com/watch?v=dqz7MQsLORI)
+> Control water towards your enemies, freeze them in a hunk of ice for a duration.
+
+**Air**
+* [WindScythe](https://www.youtube.com/watch?v=n6xKmJjvIZI)
+> Form a strong and sharp body of wind to carefully harvest your crops
+
+
 ## Installation
 * Acquire a server jar, I recommend [Paper 1.21.5](https://papermc.io/downloads/all?project=paper)
 * Start your server in a dedicated folder for it, open the eula.txt and read the EULA provided inside the file - then set eula to true.
-* Inside the directory `serverroot/plugins`, put [ProjectKorra](https://github.com/ProjectKorra/ProjectKorra/) and [PacketEvents](https://github.com/retrooper/packetevents).
+* Inside the directory `serverroot/plugins`, put [ProjectKorra](https://github.com/ProjectKorra/ProjectKorra/)
 * Restart your server
 * Put the latest version of AlmostEnoughAbilities in `serverroot/plugins`.
 * Restart the server again.
