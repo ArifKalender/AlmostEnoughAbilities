@@ -1,6 +1,7 @@
 package me.arifkalender.projectkorra.almostenoughabilities;
 
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import me.arifkalender.projectkorra.almostenoughabilities.listeners.air.AirPocketListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.air.WindScytheListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.CrustSpikesListener;
 import me.arifkalender.projectkorra.almostenoughabilities.listeners.earth.DensityAlterationListener;
@@ -54,6 +55,7 @@ public final class AlmostEnoughAbilities extends JavaPlugin {
         plugin.getServer().getPluginManager().registerEvents(new CongelationListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new WindScytheListener(), this);
         plugin.getServer().getPluginManager().registerEvents(new HydrationListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new AirPocketListener(), this);
     }
     private void setFields(){
         UtilizationMethods.fillIgnoredCrops();

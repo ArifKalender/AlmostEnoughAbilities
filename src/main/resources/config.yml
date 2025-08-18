@@ -22,7 +22,7 @@ Abilities:
     BlazeRush:
       Enabled: true
       Controllable: false
-      Cooldown: 11000
+      Cooldown: 8500
       Duration: 500
       FireTicks: 20
       Speed: 1.5
@@ -42,10 +42,10 @@ Abilities:
         Frequency: 33
     DensityAlteration:
       Enabled: true
-      Cooldown: 16000
+      Cooldown: 8000
       ChargeDuration: 500
-      Duration: 2000
-      Radius: 7.5
+      Duration: 3500
+      Radius: 6.5
     TremorWave:
       Enabled: true
       Cooldown: 15000
@@ -76,6 +76,14 @@ Abilities:
       Cooldown: 2000
       Range: 5
       Width: 5
+    AirPocket:
+      Enabled: true
+      Cooldown: 7000
+      Duration: 5000
+      Range: 5
+      Radius: 4
+      ParticleDensity: 3
+      Power: 1.0
 Strings:
   Fire:
     FlameLeap:
@@ -108,3 +116,6 @@ Strings:
     WindScythe:
       Description: 'Form a strong and sharp body of wind to carefully harvest your crops'
       Instructions: 'Left click'
+    AirPocket:
+      Description: 'Create a vacuum in the atmosphere, the powerful wind caused by the vacuum will suck the entities.'
+      Instructions: 'Hold sneak'
