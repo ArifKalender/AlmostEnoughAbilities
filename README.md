@@ -26,7 +26,8 @@
 **Air**
 * [WindScythe](https://www.youtube.com/watch?v=n6xKmJjvIZI)
 > Form a strong and sharp body of wind to carefully harvest your crops
-
+* AirPocket
+> Create a vacuum in the atmosphere, the powerful wind caused by the vacuum will suck the entities.
 
 ## Installation
 * Acquire a server jar, I recommend [Paper 1.21.5](https://papermc.io/downloads/all?project=paper)
