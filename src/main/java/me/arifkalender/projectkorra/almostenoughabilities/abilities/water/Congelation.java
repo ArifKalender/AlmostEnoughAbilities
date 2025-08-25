@@ -73,8 +73,8 @@ public class Congelation extends IceAbility implements AddonAbility, SubAbility 
         selectRange = plugin.getConfig().getInt("Abilities.Water.Congelation.SelectRange");
 
         selectedBlock = getWaterSourceBlock(player, selectRange, false);
+        if(selectedBlock != null)
         location = selectedBlock.getLocation().add(0.5, 0.5, 0.5);
-
     }
 
     @Override
