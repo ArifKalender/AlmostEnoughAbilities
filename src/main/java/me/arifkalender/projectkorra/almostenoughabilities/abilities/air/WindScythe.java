@@ -1,16 +1,11 @@
 package me.arifkalender.projectkorra.almostenoughabilities.abilities.air;
 
-/*
- * Oyuncuların önünde arc şeklinde bi hava olusturup cropları kırmasına yarar, kökleri korur ve kırmaz
- */
-
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.attribute.Attribute;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;

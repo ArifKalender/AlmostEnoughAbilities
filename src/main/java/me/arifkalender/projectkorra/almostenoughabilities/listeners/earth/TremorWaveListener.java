@@ -1,6 +1,5 @@
 package me.arifkalender.projectkorra.almostenoughabilities.listeners.earth;
 
-import com.projectkorra.projectkorra.BendingPlayer;
 import me.arifkalender.projectkorra.almostenoughabilities.abilities.earth.TremorWave;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +12,6 @@ public class TremorWaveListener implements Listener {
     private void onInteract(PlayerInteractEvent event) {
         if (event.getPlayer().isSneaking()) {
             if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(event.getPlayer());
                 new TremorWave(event.getPlayer());
             }
         }
