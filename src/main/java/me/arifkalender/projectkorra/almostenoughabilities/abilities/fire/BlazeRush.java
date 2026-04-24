@@ -10,6 +10,7 @@ import com.projectkorra.projectkorra.attribute.markers.DayNightFactor;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import me.arifkalender.projectkorra.almostenoughabilities.AlmostEnoughAbilities;
 import me.arifkalender.projectkorra.almostenoughabilities.util.UtilizationMethods;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Damageable;
@@ -133,7 +134,7 @@ public class BlazeRush extends FireAbility implements AddonAbility {
         if(!bump.getBlock().isPassable()){
             bump=player.getLocation();
             List<Location> particles = UtilizationMethods.getRingXZ(bump, 3, 99);
-            bump.getWorld().spawnParticle(Particle.FLASH, bump, 1, 0,0,0,0);
+            bump.getWorld().spawnParticle(Particle.FLASH, bump, 1, 0,0,0,0, Color.WHITE);
             bump.getWorld().spawnParticle(Particle.CLOUD, bump, 99, 0.1,0.1,0.1,0.2);
             bump.getWorld().spawnParticle(particle, bump, 99, 0.1,0.1,0.1,0.2);
             for(Location particle : particles){
